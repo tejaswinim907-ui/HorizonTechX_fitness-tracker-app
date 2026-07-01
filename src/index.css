@@ -1,34 +1,32 @@
-@import "tailwindcss";
-
-/* Reset */
+/* ===== RESET ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Smooth scrolling */
+/* ===== ROOT ===== */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Body styling */
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f3f4f6;
-  color: #111827;
+  font-family: "Inter", Arial, sans-serif;
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  color: #e2e8f0;
 }
 
-/* Remove link underline */
+/* Links */
 a {
   text-decoration: none;
   color: inherit;
-}
-
-/* Buttons */
-button {
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 /* Images */
@@ -37,17 +35,7 @@ img {
   display: block;
 }
 
-/* Optional custom progress bar */
-.progress-bar {
-  width: 100%;
-  height: 12px;
-  background-color: #e5e7eb;
-  border-radius: 9999px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background-color: #22c55e;
-  transition: width 0.5s ease;
+/* Buttons */
+button {
+  cursor: pointer;
 }
