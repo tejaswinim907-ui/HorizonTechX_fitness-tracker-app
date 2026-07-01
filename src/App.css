@@ -1,239 +1,212 @@
-/* 🌐 RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+/* Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Poppins",sans-serif;
 }
 
-/* 🌈 BACKGROUND */
-body {
-  background: radial-gradient(circle at top, #1e293b, #020617);
-  color: #e2e8f0;
+body{
+  background:#0f172a;
+  color:#fff;
 }
 
-/* 📦 CONTAINER */
-.app-container {
-  max-width: 950px;
-  margin: auto;
-  padding: 30px 20px;
+.app{
+  width:95%;
+  max-width:1500px;
+  margin:auto;
+  padding:30px 0;
 }
 
-/* 🧾 HEADER */
-.header {
-  text-align: center;
-  margin-bottom: 35px;
+/* ================= HEADER ================= */
+
+.header{
+  text-align:center;
+  margin-bottom:30px;
 }
 
-.header h1 {
-  font-size: 2.6rem;
-  font-weight: 800;
-  background: linear-gradient(90deg, #38bdf8, #22c55e, #a78bfa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.header h1{
+  font-size:58px;
+  color:#2ecc71;
+  font-weight:700;
 }
 
-.header p {
-  color: #94a3b8;
-  margin-top: 8px;
+.header p{
+  margin-top:10px;
+  color:#94a3b8;
+  font-size:26px;
 }
 
-/* 💎 GLASS CARD */
-.card-section {
-  position: relative;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 18px;
-  backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  transition: all 0.3s ease;
+/* ================= CARDS ================= */
+
+.dashboard-card,
+.goal-card,
+.history-card,
+.chart-card,
+.ai-card,
+.workout-card{
+
+  background:#20293d;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:24px;
+
+  padding:28px;
+
+  margin-bottom:28px;
+
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+
 }
 
-/* ✨ GRADIENT BORDER EFFECT */
-.card-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  padding: 1px;
-  background: linear-gradient(120deg, #38bdf8, #22c55e, #a78bfa);
-  -webkit-mask: 
-    linear-gradient(#000 0 0) content-box, 
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  pointer-events: none;
+/* ================= GRID ================= */
+
+.middle-grid{
+
+  display:grid;
+
+  grid-template-columns:2fr 1fr;
+
+  gap:28px;
+
+  align-items:start;
+
 }
 
-.card-section:hover {
-  transform: translateY(-6px) scale(1.01);
+/* ================= INPUTS ================= */
+
+input,
+select{
+
+  width:100%;
+
+  background:#0f172a;
+
+  color:white;
+
+  border:none;
+
+  outline:none;
+
+  border-radius:14px;
+
+  padding:18px;
+
+  font-size:18px;
+
+  margin-top:18px;
+
 }
 
-/* 📊 STATS */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
-  margin-top: 15px;
+input::placeholder{
+  color:#7c879c;
 }
 
-/* 💎 STAT CARD */
-.card {
-  padding: 18px;
-  border-radius: 14px;
-  text-align: center;
-  font-weight: 600;
-  background: linear-gradient(145deg, #020617, #0f172a);
-  border: 1px solid #1e293b;
-  color: #38bdf8;
-  box-shadow: inset 0 0 10px rgba(255,255,255,0.03);
-  transition: 0.3s;
+select{
+  cursor:pointer;
 }
 
-.card:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 0 20px rgba(56,189,248,0.3);
+/* ================= BUTTON ================= */
+
+button{
+
+  width:100%;
+
+  margin-top:22px;
+
+  background:linear-gradient(90deg,#2ecc71,#38bdf8);
+
+  color:white;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:16px;
+
+  font-size:18px;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.3s;
+
 }
 
-/* 🎯 PROGRESS */
-.progress-section {
-  margin-top: 18px;
+button:hover{
+
+  transform:translateY(-3px);
+
 }
 
-.progress-bar {
-  height: 14px;
-  background: #020617;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 10px;
+/* ================= TABLE ================= */
+
+table{
+
+  width:100%;
+
+  margin-top:20px;
+
+  border-collapse:collapse;
+
 }
 
-.progress-fill {
-  height: 100%;
-  border-radius: 20px;
-  background: linear-gradient(to right, #22c55e, #4ade80, #38bdf8);
-  animation: glow 2s infinite alternate;
+th{
+
+  background:#111827;
+
+  padding:16px;
+
 }
 
-@keyframes glow {
-  from {
-    box-shadow: 0 0 5px #22c55e;
-  }
-  to {
-    box-shadow: 0 0 15px #38bdf8;
-  }
+td{
+
+  padding:16px;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
 }
 
-/* 🧩 GRID */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+tr:hover{
+
+  background:#273349;
+
 }
 
-/* 📱 RESPONSIVE */
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
+/* ================= TITLES ================= */
+
+h2{
+
+  font-size:22px;
+
+  margin-bottom:20px;
+
 }
 
-/* 📝 INPUT */
-input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid #1e293b;
-  background: #020617;
-  color: #e2e8f0;
-  transition: 0.2s;
+/* ================= MOBILE ================= */
+
+@media(max-width:1000px){
+
+.middle-grid{
+
+grid-template-columns:1fr;
+
 }
 
-input:focus {
-  border-color: #38bdf8;
-  box-shadow: 0 0 10px rgba(56,189,248,0.3);
+.header h1{
+
+font-size:42px;
+
 }
 
-/* 🔘 BUTTON */
-button {
-  margin-top: 10px;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  font-weight: bold;
-  background: linear-gradient(120deg, #38bdf8, #22c55e);
-  color: #020617;
-  cursor: pointer;
-  transition: 0.3s;
+.header p{
+
+font-size:18px;
+
 }
 
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(34,197,94,0.4);
-}
-
-button:active {
-  transform: scale(0.95);
-}
-
-/* 📋 WORKOUT LIST */
-.workout-list {
-  list-style: none;
-  margin-top: 12px;
-}
-
-/* 📋 ITEM */
-.workout-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  background: rgba(2, 6, 23, 0.9);
-  border: 1px solid #1e293b;
-  transition: 0.3s;
-}
-
-.workout-item:hover {
-  transform: translateX(5px);
-  background: #0f172a;
-}
-
-.workout-item strong {
-  color: #38bdf8;
-}
-
-.workout-item p {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-.workout-item small {
-  color: #64748b;
-}
-
-/* ❌ DELETE */
-.workout-item button {
-  background: #ef4444;
-  color: white;
-  padding: 6px 10px;
-}
-
-.workout-item button:hover {
-  background: #dc2626;
-}
-
-/* 📭 EMPTY */
-.empty {
-  text-align: center;
-  color: #64748b;
-  margin-top: 10px;
-}
-
-/* 📊 CHART */
-canvas {
-  margin-top: 10px;
 }

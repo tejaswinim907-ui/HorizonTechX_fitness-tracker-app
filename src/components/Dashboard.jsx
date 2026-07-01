@@ -1,36 +1,65 @@
 import React from "react";
+import "./Dashboard.css";
 
-function Dashboard({ steps, calories, workouts, goal, streak }) {
+function Dashboard({ steps, calories, workouts, streak, goal }) {
   const progress = Math.min((steps / goal) * 100, 100);
 
   return (
-    <div>
-      <h2>Dashboard</h2>
+    <div className="dashboard-container">
+      <h2>Dashboard Overview</h2>
 
-      <div className="stats">
-        <div className="card">👣 {steps} Steps</div>
-        <div className="card">🔥 {calories} Calories</div>
-        <div className="card">💪 {workouts} Workouts</div>
-        <div className="card">🔥 {streak} Day Streak</div>
-      </div>
+      <div className="stats-grid">
 
-      {/* Progress */}
-      <div className="progress-section">
-        <h3>Goal Progress</h3>
+        <div className="stat-card">
+          <div className="stat-icon steps">👣</div>
 
-        <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${progress}%` }}
-          ></div>
+          <div className="stat-info">
+            <h3>Steps</h3>
+            <h1>{steps.toLocaleString()}</h1>
+          </div>
         </div>
 
-        <p>{Math.floor(progress)}% completed</p>
+        <div className="stat-card">
+          <div className="stat-icon calories">🔥</div>
 
-        {progress < 50 && <p>🚶 Keep going!</p>}
-        {progress >= 50 && progress < 100 && <p>🔥 Almost there!</p>}
-        {progress === 100 && <p>🎉 Goal achieved!</p>}
+          <div className="stat-info">
+            <h3>Calories</h3>
+            <h1>{calories}</h1>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <div className="stat-icon workouts">🏋️</div>
+
+          <div className="stat-info">
+            <h3>Workouts</h3>
+            <h1>{workouts}</h1>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <div className="stat-icon streak">🏆</div>
+
+          <div className="stat-info">
+            <h3>Streak</h3>
+            <h1>{streak} Days</h1>
+          </div>
+        </div>
+
       </div>
+
+      <div className="progress-title">
+        <span>Daily Goal Progress</span>
+        <span>{progress.toFixed(0)}%</span>
+      </div>
+
+      <div className="progress">
+        <div
+          className="progress-fill"
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+
     </div>
   );
 }

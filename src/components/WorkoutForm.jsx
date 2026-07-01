@@ -1,36 +1,95 @@
 import React, { useState } from "react";
+import "./WorkoutForm.css";
 
 function WorkoutForm({ addWorkout }) {
   const [name, setName] = useState("");
+  const [type, setType] = useState("Cardio");
   const [duration, setDuration] = useState("");
+  const [calories, setCalories] = useState("");
+  const [steps, setSteps] = useState("");
 
-  const handleSubmit = () => {
-    if (!name || !duration) return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    addWorkout({ name, duration });
+    if (
+      !name ||
+      !duration ||
+      !calories ||
+      !steps
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    addWorkout({
+      name,
+      type,
+      duration,
+      calories,
+      steps,
+    });
+
     setName("");
+    setType("Cardio");
     setDuration("");
+    setCalories("");
+    setSteps("");
   };
 
   return (
-    <div>
-      <h2>Add Workout</h2>
+    <div className="workout-card">
 
-      <input
-        type="text"
-        placeholder="Workout Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <h2>💪 Add Workout</h2>
 
-      <input
-        type="number"
-        placeholder="Duration (mins)"
-        value={duration}
-        onChange={(e) => setDuration(e.target.value)}
-      />
+      <form onSubmit={handleSubmit}>
 
-      <button onClick={handleSubmit}>Add Workout</button>
+        <input
+          type="text"
+          placeholder="Workout Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <select
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+        >
+          <option>Cardio</option>
+          <option>Running</option>
+          <option>Walking</option>
+          <option>Cycling</option>
+          <option>Gym</option>
+          <option>Yoga</option>
+          <option>Swimming</option>
+        </select>
+
+        <input
+          type="number"
+          placeholder="Duration (minutes)"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+        />
+
+        <input
+          type="number"
+          placeholder="Calories Burned"
+          value={calories}
+          onChange={(e) => setCalories(e.target.value)}
+        />
+
+        <input
+          type="number"
+          placeholder="Steps"
+          value={steps}
+          onChange={(e) => setSteps(e.target.value)}
+        />
+
+        <button type="submit">
+          ➕ Add Workout
+        </button>
+
+      </form>
+
     </div>
   );
 }

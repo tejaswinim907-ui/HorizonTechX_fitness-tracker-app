@@ -1,136 +1,222 @@
 import React, { useState, useEffect } from "react";
+import "./App.css";
+
 import Dashboard from "./components/Dashboard";
 import WorkoutForm from "./components/WorkoutForm";
 import AIInsights from "./components/AIInsights";
 import ActivityChart from "./components/ActivityChart";
-import "./App.css";
 
 function App() {
-  const [steps, setSteps] = useState(0);
-  const [calories, setCalories] = useState(0);
   const [workouts, setWorkouts] = useState([]);
   const [goal, setGoal] = useState(10000);
-  const [streak, setStreak] = useState(0);
 
-  // Load
+  // Dashboard Stats
+  const [steps, setSteps] = useState(0);
+  const [calories, setCalories] = useState(0);
+  const [streak, setStreak] = useState(1);
+
+  // Load Local Storage
   useEffect(() => {
-    const s = localStorage.getItem("steps");
-    const c = localStorage.getItem("calories");
-    const w = localStorage.getItem("workouts");
-    const g = localStorage.getItem("goal");
-    const st = localStorage.getItem("streak");
+    const savedWorkouts =
+      JSON.parse(localStorage.getItem("workouts")) || [];
 
-    if (s) setSteps(Number(s));
-    if (c) setCalories(Number(c));
-    if (w) setWorkouts(JSON.parse(w));
-    if (g) setGoal(Number(g));
-    if (st) setStreak(Number(st));
+    const savedGoal =
+      Number(localStorage.getItem("goal")) || 10000;
+
+    const savedStreak =
+      Number(localStorage.getItem("streak")) || 1;
+
+    setGoal(savedGoal);
+    setStreak(savedStreak);
+    setWorkouts(savedWorkouts);
+
+    let totalSteps = 0;
+    let totalCalories = 0;
+
+    savedWorkouts.forEach((item) => {
+      totalSteps += Number(item.steps || 0);
+      totalCalories += Number(item.calories || 0);
+    });
+
+    setSteps(totalSteps);
+    setCalories(totalCalories);
   }, []);
 
-  // Save
+  // Save Local Storage
   useEffect(() => {
-    localStorage.setItem("steps", steps);
-    localStorage.setItem("calories", calories);
     localStorage.setItem("workouts", JSON.stringify(workouts));
     localStorage.setItem("goal", goal);
     localStorage.setItem("streak", streak);
-  }, [steps, calories, workouts, goal, streak]);
+  }, [workouts, goal, streak]);
 
-  // Add workout
+  // Add Workout
   const addWorkout = (workout) => {
     const newWorkout = {
       ...workout,
       date: new Date().toLocaleDateString(),
     };
 
-    setWorkouts([...workouts, newWorkout]);
-    setSteps((prev) => prev + 1000);
-    setCalories((prev) => prev + 50);
+    const updated = [...workouts, newWorkout];
+
+    setWorkouts(updated);
+
+    setSteps((prev) => prev + Number(workout.steps));
+    setCalories((prev) => prev + Number(workout.calories));
     setStreak((prev) => prev + 1);
   };
 
-  // Delete workout
+  // Delete Workout
   const deleteWorkout = (index) => {
-    if (window.confirm("Delete this workout?")) {
-      setWorkouts(workouts.filter((_, i) => i !== index));
+    const removed = workouts[index];
+
+    const updated = workouts.filter((_, i) => i !== index);
+
+    setWorkouts(updated);
+
+    setSteps((prev) => prev - Number(removed.steps));
+
+    setCalories((prev) => prev - Number(removed.calories));
+
+    if (streak > 0) {
+      setStreak((prev) => prev - 1);
     }
   };
 
   return (
-    <div className="app-container">
+    <div className="app">
+
       {/* Header */}
+
       <header className="header">
-        <h1>🏆 Fitness Tracker</h1>
-        <p className="subtitle">Track • Improve • Stay Consistent 💪</p>
+
+        <h1>🏋 Fitness Tracker</h1>
+
+        <p>
+          Track • Improve • Stay Consistent 💪
+        </p>
+
       </header>
 
       {/* Dashboard */}
-      <section className="card-section">
-        <Dashboard
-          steps={steps}
-          calories={calories}
-          workouts={workouts.length}
-          goal={goal}
-          streak={streak}
-        />
-      </section>
 
-      {/* Goal */}
-      <section className="card-section">
-        <h2>Set Daily Goal 🎯</h2>
-        <input
-          type="number"
-          value={goal}
-          onChange={(e) => setGoal(Number(e.target.value))}
-        />
-      </section>
+      <Dashboard
+        steps={steps}
+        calories={calories}
+        workouts={workouts.length}
+        streak={streak}
+        goal={goal}
+      />
 
-      {/* Form */}
-      <section className="card-section">
-        <h2>Add Workout</h2>
-        <WorkoutForm addWorkout={addWorkout} />
-      </section>
+      {/* Middle Layout */}
 
-      {/* List */}
-      <section className="card-section">
-        <h2>Workout History</h2>
+      <div className="middle-grid">
+
+        {/* Left */}
+
+        <div>
+
+          <WorkoutForm addWorkout={addWorkout} />
+
+        </div>
+
+        {/* Right */}
+
+        <div>
+
+          <AIInsights
+            steps={steps}
+            calories={calories}
+            goal={goal}
+          />
+
+          <div className="goal-card">
+
+            <h2>🎯 Daily Goal</h2>
+
+            <input
+              type="number"
+              value={goal}
+              onChange={(e) =>
+                setGoal(Number(e.target.value))
+              }
+            />
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* Workout History */}
+
+      <div className="history-card">
+
+        <h2>📋 Workout History</h2>
 
         {workouts.length === 0 ? (
-          <p className="empty">
-            🏃 Start your journey by adding a workout!
-          </p>
+          <p>No workouts added.</p>
         ) : (
-          <ul className="workout-list">
-            {workouts.map((w, index) => (
-              <li key={index} className="workout-item">
-                <div>
-                  <strong>{w.name}</strong>
-                  <p>{w.duration} mins</p>
-                  <small>{w.date}</small>
-                </div>
-                <button
-                  className="delete-btn"
-                  onClick={() => deleteWorkout(index)}
-                >
-                  ❌
-                </button>
-              </li>
-            ))}
-          </ul>
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Duration</th>
+                <th>Calories</th>
+                <th>Steps</th>
+                <th>Date</th>
+                <th></th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              {workouts.map((item, index) => (
+
+                <tr key={index}>
+
+                  <td>{item.name}</td>
+
+                  <td>{item.type}</td>
+
+                  <td>{item.duration} min</td>
+
+                  <td>{item.calories}</td>
+
+                  <td>{item.steps}</td>
+
+                  <td>{item.date}</td>
+
+                  <td>
+
+                    <button
+                      onClick={() =>
+                        deleteWorkout(index)
+                      }
+                    >
+                      Delete
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
         )}
-      </section>
 
-      {/* Chart */}
-      <section className="card-section">
-        <h2>Weekly Progress</h2>
-        <ActivityChart steps={steps} />
-      </section>
+      </div>
 
-      {/* AI */}
-      <section className="card-section">
-        <h2>AI Insights</h2>
-        <AIInsights steps={steps} calories={calories} />
-      </section>
+      {/* Graph */}
+
+      <ActivityChart history={workouts} />
+
     </div>
   );
 }
