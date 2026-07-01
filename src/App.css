@@ -1,0 +1,239 @@
+/* 🌐 RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* 🌈 BACKGROUND */
+body {
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  color: #e2e8f0;
+}
+
+/* 📦 CONTAINER */
+.app-container {
+  max-width: 950px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+/* 🧾 HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.header h1 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #38bdf8, #22c55e, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+/* 💎 GLASS CARD */
+.card-section {
+  position: relative;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+/* ✨ GRADIENT BORDER EFFECT */
+.card-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 1px;
+  background: linear-gradient(120deg, #38bdf8, #22c55e, #a78bfa);
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+.card-section:hover {
+  transform: translateY(-6px) scale(1.01);
+}
+
+/* 📊 STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* 💎 STAT CARD */
+.card {
+  padding: 18px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: 600;
+  background: linear-gradient(145deg, #020617, #0f172a);
+  border: 1px solid #1e293b;
+  color: #38bdf8;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.03);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 20px rgba(56,189,248,0.3);
+}
+
+/* 🎯 PROGRESS */
+.progress-section {
+  margin-top: 18px;
+}
+
+.progress-bar {
+  height: 14px;
+  background: #020617;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(to right, #22c55e, #4ade80, #38bdf8);
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #22c55e;
+  }
+  to {
+    box-shadow: 0 0 15px #38bdf8;
+  }
+}
+
+/* 🧩 GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 📝 INPUT */
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e2e8f0;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56,189,248,0.3);
+}
+
+/* 🔘 BUTTON */
+button {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  background: linear-gradient(120deg, #38bdf8, #22c55e);
+  color: #020617;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(34,197,94,0.4);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* 📋 WORKOUT LIST */
+.workout-list {
+  list-style: none;
+  margin-top: 12px;
+}
+
+/* 📋 ITEM */
+.workout-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid #1e293b;
+  transition: 0.3s;
+}
+
+.workout-item:hover {
+  transform: translateX(5px);
+  background: #0f172a;
+}
+
+.workout-item strong {
+  color: #38bdf8;
+}
+
+.workout-item p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.workout-item small {
+  color: #64748b;
+}
+
+/* ❌ DELETE */
+.workout-item button {
+  background: #ef4444;
+  color: white;
+  padding: 6px 10px;
+}
+
+.workout-item button:hover {
+  background: #dc2626;
+}
+
+/* 📭 EMPTY */
+.empty {
+  text-align: center;
+  color: #64748b;
+  margin-top: 10px;
+}
+
+/* 📊 CHART */
+canvas {
+  margin-top: 10px;
+}
